@@ -37,11 +37,12 @@
         <script>
         
             var inputValue = document.querySelector('#input').value;
+            var output = 'http://shortcutter.herokuapp.com/new/'+inputValue;
             var button = document.getElementById('button');
 
             button.addEventListener('click', function(){
-                window.location.href = 'http://http://shortcutter.herokuapp.com/new/'+inputValue;
-            })
+                window.location.href = output;
+            });
 
         </script>
         
