@@ -21,7 +21,7 @@
                 <h1>Shorten your URL address</h1>
                 <form>
                     <input type="text" name="input" id="input" placeholder="e.g. http://www.google.com">
-                    <button id="submit_button">Shorten</button>
+                    <button id="submit_button" onclick="changeLocation()">Shorten</button>
                 </form>
                 <p id="info">Just type or paste www address and click the Shorten button to get your own URL shortcut, easy to use over the phone when talking to clients.  </p>  
             </section>
@@ -34,18 +34,12 @@
 
 
         <script>
-            window.onkeyup = keyup
-            
+        
             var input = document.querySelector('#input');
-            var button = document.querySelector('#submit_button');
-            
-            button.addEventListener('click', ()=>{
+            // var button = document.querySelector('#submit_button');
+            // button.addEventListener('click', changeLocation);
+            var changeLocation = function(){
                 window.location = "http://shortcutter.herokuapp/new/"+input.value;
-            });
-            function keyup(e) {
-                if (e.keyCode == 13) {
-                    window.location = "http://www.myurl.com/search/" + e.input.value;
-                }
             }
 
         </script>
