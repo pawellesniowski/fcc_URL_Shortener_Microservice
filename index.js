@@ -70,20 +70,24 @@ app.get('/new/:passedURL(*)', (req, res, next)=>{
 
 // second get request
 app.get('/:numberPassed/', (req, res)=>{
-    var myDomain = req.headers.host;
     var numberPassed = +req.params.numberPassed;
-    console.log('number passed to /:numerPassed',numberPassed);
-    // get document with this number form database
-    mongoClient.connect(dbURL, (err, db)=>{
-        if (err) return err;
-        var regExShortenURL = new RegExp(numberPassed, 'ig');
-        db.collection('shortURL').find({
-            shorten_url: regExShortenURL
-        }).toArray((err, doc)=>{
+    if (!isNaN(numberPassed)){
+        var myDomain = req.headers.host;
+        console.log('number passed to /:numerPassed',numberPassed);
+        // get document with this number form database
+        mongoClient.connect(dbURL, (err, db)=>{
             if (err) return err;
-            res.redirect(doc[0].original_url);
+            var regExShortenURL = new RegExp(numberPassed, 'ig');
+            db.collection('shortURL').find({
+                shorten_url: regExShortenURL
+            }).toArray((err, doc)=>{
+                if (err) return err;
+                res.redirect(doc[0].original_url);
+            })
         })
-    })
+    } else {
+        res.send("icorrect URL address");
+    }
 });
 
 app.listen(port, ()=>console.log('app is running on port: ', port));
