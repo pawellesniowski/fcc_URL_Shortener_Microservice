@@ -82,7 +82,11 @@ app.get('/:numberPassed/', (req, res)=>{
                 shorten_url: regExShortenURL
             }).toArray((err, doc)=>{
                 if (err) return err;
-                res.redirect(doc[0].original_url);
+                if (typeof doc[0] === 'undefined' || doc[0] === null){
+                    res.send("icorrect URL address");
+                } else {
+                    res.redirect(doc[0].original_url);
+                }
             })
         })
     } else {
