@@ -13,7 +13,11 @@ app.get('/', (req, res)=>{
 
 app.get('/new/:passedURL(*)', (req, res, next)=>{
     // ask DB if there is passedURL allredy in the database
-    var regExPassedURL = new RegExp(req.params.passedURL, "ig");
+    
+    var passedURL = req._parsedUrl.href.slice(5);
+
+    var regExPassedURL = new RegExp(passedURL, "ig");
+    // console.log(regExPassedURL);
     mongoClient.connect(dbURL, (err, db)=>{
         if(err) throw err;
         db.collection(collectionName).find({
@@ -30,13 +34,13 @@ app.get('/new/:passedURL(*)', (req, res, next)=>{
             var myDomain = req.headers.host;
             // regEx for correct addresed passed:
             var regEx = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
-            if (req.params.passedURL.match(regEx)) {
+            if (passedURL.match(regEx)) {
                     
-                    if(/http:/.test(req.params.passedURL)){ //for example: http://google.com 
-                        var original_url = req.params.passedURL;
+                    if(/http:/.test(passedURL)){ //for example: http://google.com 
+                        var original_url = passedURL;
                         var shorten_url = 'http://'+ myDomain + "/" + Math.floor(Math.random()*100000);
                     } else { //for example google.com
-                        var original_url = 'http://'+ req.params.passedURL;
+                        var original_url = passedURL;
                         var shorten_url = 'http://'+ myDomain + "/" + Math.floor(Math.random()*100000);
                     }
 
