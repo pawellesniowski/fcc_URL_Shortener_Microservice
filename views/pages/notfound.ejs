@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <!-- head -->
+        <% include ../partials/head %>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div class="container">
+            <!-- header -->
+            <% include ../partials/header %>
+
+            <section class="main">
+                <h1>Page not found </h1>
+                <div class="main_info">
+                    <h3><%=message%></h3>
+                </div>
+                <p id="info">Please find out the correct shortcut, or generate a new one. Thank you.</p>  
+            </section>
+
+            <!-- footer -->
+            <% include ../partials/footer %>
+
+        </div> <!--end of main container  -->
+
+
+        <script>
+            var input = document.querySelector('#input');
+            var button = document.querySelector('#submit_button');
+            
+            button.addEventListener('click', ()=>{
+                document.location.href = `${input.value}`;
+            })
+        </script>
+        
+    </body>
+</html>

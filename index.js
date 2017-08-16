@@ -8,7 +8,7 @@ var port = process.env.PORT || 5000,
 app.set('view engine', 'ejs');
 
 app.get('/', (req, res)=>{
-    res.render('index.ejs');
+    res.render('pages/index.ejs');
 })
 
 app.get('/new/:passedURL(*)', (req, res, next)=>{
@@ -63,11 +63,11 @@ app.get('/new/:passedURL(*)', (req, res, next)=>{
                     }
             });//end of mongo connection code
             var object = {original_url: original_url, shorten_url: shorten_url};
-            res.render('new.ejs', {object: object});
+            res.render('pages/new.ejs', {object: object});
             
         } else {
             var object = {original_url: doc[0].original_url, shorten_url: doc[0].shorten_url};
-            res.render('new.ejs', {object: object});
+            res.render('pages/new.ejs', {object: object});
             // res.json({original_url: doc[0].original_url, shorten_url: doc[0].shorten_url});   
         }
 
@@ -91,14 +91,14 @@ app.get('/:numberPassed/', (req, res)=>{
             }).toArray((err, doc)=>{
                 if (err) return err;
                 if (typeof doc[0] === 'undefined' || doc[0] === null){
-                    res.send("icorrect URL address");
+                    res.render('pages/notfound.ejs', {message: "incorrect shortcut"});
                 } else {
                     res.redirect(doc[0].original_url);
                 }
             })
         })
     } else {
-        res.send("icorrect URL address");
+        res.render('pages/notfound.ejs', {message: "incorrect shortcut"});
     }
 });
 

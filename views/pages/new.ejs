@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <!-- head -->
+        <% include ../partials/head %>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div class="container">
+
+            <!-- header -->
+            <% include ../partials/header %>
+
+            <section class="main">
+                <!-- <h1>Success: </h1> -->
+                <div class="main_info">
+                    <h3><span class="darken">Original address: </span> <%= object.original_url %></h3>
+                    <h3><span class="darken">Shortcut: </span> <%= object.shorten_url %></h3>
+                </div>
+                <p id="info">Thank you for using Shortcutter. 
+                    Every time you use shortcutter we hug a kitty and plant a tree.</p>  
+            </section>
+
+            <!-- footer -->
+            <% include ../partials/footer %>
+
+        </div> <!--end of main container  -->
+
+
+        <script>
+            var input = document.querySelector('#input');
+            var button = document.querySelector('#submit_button');
+            
+            button.addEventListener('click', ()=>{
+                document.location.href = `${input.value}`;
+            })
+
+        </script>
+        
+    </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <!-- head -->
+        <% include ../partials/head %>
+        
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div class="container">
+            <!-- header -->
+            <% include ../partials/header %>
+
+            <!-- main -->
+            <section class="main">
+                <h1>Shorten your URL address</h1>
+                <form>
+                    <input type="url" name="input" id="input" placeholder="e.g. http://www.google.com">
+                    <button type="submit" id="submit_button">Shorten</button>
+                </form>
+                <p id="info">Just type or paste www address and click the Shorten button to get your own URL shortcut, easy to use over the phone when talking to clients.  </p>  
+            </section>
+
+            <!-- footer -->
+            <% include ../partials/footer %>
+
+            
+        </div> <!--end of main container  -->
+
+
+        <script>
+            var input = document.querySelector('#input');
+            var button = document.querySelector('#submit_button');
+            
+            button.addEventListener('click', ()=>{
+                document.location.href = `/new/${input.value}`;
+            })
+
+        </script>
+        
+    </body>
+</html>
