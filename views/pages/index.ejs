@@ -34,11 +34,13 @@
 
 
         <script>
-            var input = document.querySelector('#input');
+            
             var button = document.querySelector('#submit_button');
+            var input = document.querySelector('#input');
+            
             
             button.addEventListener('click', ()=>{
-                document.location.href = `/new/${input.value}`;
+                document.location.href = `${input.value}`;
             })
 
         </script>
