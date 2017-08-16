@@ -21,8 +21,7 @@
                 <h1>Shorten your URL address</h1>
                 <form>
                     <input type="text" name="input" id="input" placeholder="e.g. http://www.google.com">
-                    <!-- <input type="subbmit" id="submit_button">Shorten</input> -->
-                    <div id="button" class="button">Shorten</div>
+                    <button type="submit" id="submit_button">Shorten</button>
                 </form>
                 <p id="info">Just type or paste www address and click the Shorten button to get your own URL shortcut, easy to use over the phone when talking to clients.  </p>  
             </section>
@@ -35,14 +34,12 @@
 
 
         <script>
-        
-            var inputValue = document.querySelector('#input').value;
-            var output = 'http://shortcutter.herokuapp.com/new/'+inputValue;
-            var button = document.getElementById('button');
-
-            button.addEventListener('click', function(){
-                window.location.href = output;
-            });
+            var input = document.querySelector('#input');
+            var button = document.querySelector('#submit_button');
+            
+            button.addEventListener('click', ()=>{
+                document.location.href = `/new/${input.value}`;
+            })
 
         </script>
         
