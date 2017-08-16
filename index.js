@@ -5,6 +5,11 @@ const express = require('express'),
 var port = process.env.PORT || 5000,
     collectionName = 'shortURL';
 
+app.set('view engine', 'ejs');
+
+app.get('/', (req, res)=>{
+    res.render('index.ejs');
+})
 
 app.get('/new/:passedURL(*)', (req, res, next)=>{
     // ask DB if there is passedURL allredy in the database
@@ -57,10 +62,13 @@ app.get('/new/:passedURL(*)', (req, res, next)=>{
                         });
                     }
             });//end of mongo connection code
-            res.json({original_url: original_url, shorten_url: shorten_url});
-        } else {
-            res.json({original_url: doc[0].original_url, shorten_url: doc[0].shorten_url});
+            var object = {original_url: original_url, shorten_url: shorten_url};
+            res.render('new.ejs', {object: object});
             
+        } else {
+            var object = {original_url: doc[0].original_url, shorten_url: doc[0].shorten_url};
+            res.render('new.ejs', {object: object});
+            // res.json({original_url: doc[0].original_url, shorten_url: doc[0].shorten_url});   
         }
 
     }// end of function dbChecked
