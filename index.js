@@ -1,9 +1,10 @@
 const express = require('express'),
     app = express();
     mongoClient = require('mongodb').MongoClient,
-    dbURL = "mongodb://localhost:27017/mydb"; 
+    dbURL = "mongodb://username:matrix@ds145193.mlab.com:45193/shortcutter"; 
 var port = process.env.PORT || 5000,
     collectionName = 'shortURL';
+
 
 app.get('/new/:passedURL(*)', (req, res, next)=>{
     // ask DB if there is passedURL allredy in the database
@@ -16,9 +17,8 @@ app.get('/new/:passedURL(*)', (req, res, next)=>{
             if(err) throw err;
             dbChecked(doc);
             db.close();
-            
-        })
-    })
+        });
+    });
     
     function dbChecked(doc){
         console.log(doc);
@@ -52,15 +52,15 @@ app.get('/new/:passedURL(*)', (req, res, next)=>{
                             original_url: original_url,
                             shorten_url: shorten_url
                         }, (err, result)=>{
-                            // console.log(result);
-                            db.close();
+                            if(err) throw err;
+                            
                         });
                     }
             });//end of mongo connection code
             res.json({original_url: original_url, shorten_url: shorten_url});
         } else {
-            console.log(doc);
             res.json({original_url: doc[0].original_url, shorten_url: doc[0].shorten_url});
+            
         }
 
     }// end of function dbChecked
@@ -69,10 +69,10 @@ app.get('/new/:passedURL(*)', (req, res, next)=>{
 
 
 // second get request
-app.get('/:numberPassed', (req, res)=>{
+app.get('/:numberPassed/', (req, res)=>{
     var myDomain = req.headers.host;
     var numberPassed = +req.params.numberPassed;
-    console.log(numberPassed);
+    console.log('number passed to /:numerPassed',numberPassed);
     // get document with this number form database
     mongoClient.connect(dbURL, (err, db)=>{
         if (err) return err;
