@@ -26,10 +26,7 @@ app.get('/new/:passedURL(*)', (req, res, next)=>{
     });
     
     function dbChecked(doc){
-        console.log(doc);
-        // console.log("TUTAJ JESTEM !!!!!!!!!!!!!", doc[0].original_url, doc[0].shorten_url);
-
-        if(typeof doc[0] === 'undefined' || doc[0] === null) {
+        if(typeof doc[0] === 'undefined' || doc[0] === null) { //checking what came from DB
             var myDomain = req.headers.host;
             // regEx for correct addresed passed:
             var regEx = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
@@ -58,7 +55,7 @@ app.get('/new/:passedURL(*)', (req, res, next)=>{
                             shorten_url: shorten_url
                         }, (err, result)=>{
                             if(err) throw err;
-                            
+                            db.close();
                         });
                     }
             });//end of mongo connection code
@@ -68,7 +65,6 @@ app.get('/new/:passedURL(*)', (req, res, next)=>{
         } else {
             var object = {original_url: doc[0].original_url, shorten_url: doc[0].shorten_url};
             res.render('pages/new.ejs', {object: object});
-            // res.json({original_url: doc[0].original_url, shorten_url: doc[0].shorten_url});   
         }
 
     }// end of function dbChecked
@@ -81,7 +77,6 @@ app.get('/:numberPassed/', (req, res)=>{
     var numberPassed = +req.params.numberPassed;
     if (!isNaN(numberPassed)){
         var myDomain = req.headers.host;
-        console.log('number passed to /:numerPassed',numberPassed);
         // get document with this number form database
         mongoClient.connect(dbURL, (err, db)=>{
             if (err) return err;
