@@ -34,12 +34,19 @@
 
 
         <script>
+            window.onkeyup = keyup
+            
             var input = document.querySelector('#input');
             var button = document.querySelector('#submit_button');
             
             button.addEventListener('click', ()=>{
-                window.location = `http://shortcutter.herokuapp/new/${input.value}`;
-            })
+                window.location = "http://shortcutter.herokuapp/new/"+input.value;
+            });
+            function keyup(e) {
+                if (e.keyCode == 13) {
+                    window.location = "http://www.myurl.com/search/" + e.input.value;
+                }
+            }
 
         </script>
         
