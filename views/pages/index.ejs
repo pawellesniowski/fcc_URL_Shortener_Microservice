@@ -37,10 +37,11 @@
             
             var input = document.querySelector('#input');
             var button = document.querySelector('#submit_button');
+            console.log(input.value);
             
-            button.addEventListener('click', ()=>{
+            button.addEventListener('click', function(){
                 document.location.href = `/new/${input.value}`;
-            })
+            });
 
         </script>
         
